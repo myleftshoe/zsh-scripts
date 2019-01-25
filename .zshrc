@@ -1,7 +1,7 @@
 $SHELL --version
 
 # Set code page to Unicode UTF-8
-chcp 65001
+#chcp 65001
 
 #********************* MY SETTINGS ************************
 
