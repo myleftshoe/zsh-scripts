@@ -1,0 +1,6 @@
+*
+!.gitignore
+!.zshrc
+!.current.zsh-theme
+!scripts/
+!scripts/*
