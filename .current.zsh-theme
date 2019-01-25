@@ -53,16 +53,17 @@ prompt_dir() {
     relativePath=$(python -c "import os.path; print os.path.relpath('$PWD', '$START_DIR')")
   fi
 	
-  if [[ $relativePath = "$HOME" ]]
+  if [[ "$PWD" = "$HOME" ]]
   then
-     relativePath="~"
-  elif [[ $relativePath = '.' ]]
+    relativePath="~"
+    if [[ "$PWD" = "$START_DIR" ]]
+    then
+      relativePath="≋"
+    fi
+  fi
+  if [[ $relativePath = '.' ]]
   then
     relativePath="≈"
-  fi
-  if [[ "$PWD" = "$START_DIR" ]]
-  then
-    relativePath="≋"
   fi
   prompt_segment 9 15 "$relativePath"
 }
