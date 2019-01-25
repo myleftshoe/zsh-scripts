@@ -37,7 +37,7 @@ ssd
 
 #********************* OH-MY-ZSH SETTINGS ************************
 
-ZSH_THEME="/../../_current"
+ZSH_THEME="/../../.current"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
