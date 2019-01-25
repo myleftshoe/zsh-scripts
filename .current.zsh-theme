@@ -34,11 +34,12 @@ prompt_git() {
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git show-ref --head -s --abbrev |head -n1 2> /dev/null)"
     if [[ -n $dirty ]]; then
       prompt_segment 11 black 
+      echo -n "${ref/refs\/heads\// }"
     elif ($(git rev-list HEAD...origin/master --count) -ne 0); then
       prompt_segment green black
+      echo -n "${ref/refs\/heads\// }"
     fi
 #   echo -n "${ref/refs\/heads\// }$dirty"
-    echo -n "${ref/refs\/heads\// }"
   fi
 }
 
