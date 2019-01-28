@@ -69,11 +69,12 @@ prompt_dir() {
 }
 
 prompt_logo() {
-  prompt_segment white 9 ""
+  prompt_segment 9 gray ""
 }
 
 prompt_time() {
-  prompt_segment white black "%D{%H:%M:%S}"
+  prompt_segment 9 gray "%D{%H:%M:%S}"
+  echo -n "%F{black}%K{9} ⎪" 
 }
 
 ## Main prompt
