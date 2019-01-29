@@ -39,12 +39,10 @@ prompt_git() {
       prompt_segment green black
       echo -n "${ref/refs\/heads\// }"
     fi
-#   echo -n "${ref/refs\/heads\// }$dirty"
   fi
 }
 
 prompt_root() {
-#  prompt_segment blue 5 '%~'
   local relativePath baseDir
   baseDir=${(U)$(echo "$PWD" | cut -d "/" -f2)}
    if [[ -z $baseDir ]]
@@ -52,8 +50,6 @@ prompt_root() {
       baseDir="(ROOT)"
    fi
   prompt_segment 9 15 "$baseDir"
-# echo -n "%F{15}%K{9} $baseDir "
-# echo -n "%F{7}"
 }
 
 prompt_logo() {
@@ -63,27 +59,9 @@ prompt_logo() {
 }
 
 prompt_dir() {
-#  prompt_segment blue 5 '%~'
   local relativePath baseDir
   baseDir=$(echo "$PWD" | cut -d "/" -f2)
-# if [[ $baseDir != $START_BASE_DIR ]]; then
-    relativePath=$(basename $PWD)
-# else 
-#   relativePath=$(python -c "import os.path; print os.path.relpath('$PWD', '$START_DIR')")
-# fi
-	
-#  if [[ "$PWD" = "$HOME" ]]
-#  then
-#    relativePath="~"
-#    if [[ "$PWD" = "$START_DIR" ]]
-#    then
-#      relativePath="≋"
-#    fi
-#  fi
-#  if [[ $relativePath = '.' ]]
-#  then
-#    relativePath="≈"
-#  fi
+  relativePath=$(basename $PWD)
   if [[ $relativePath = $baseDir ]] 
   then
     relativePath=""
@@ -93,8 +71,6 @@ prompt_dir() {
     relativePath=""
   fi
   prompt_segment 7 15 "$relativePath"
-#  echo -n "%F{black}%K{7} $relativePath "
-#  echo -n "%F{9}"
 }
 
 prompt_logo() {
@@ -103,7 +79,6 @@ prompt_logo() {
 }
 
 prompt_time() {
-# prompt_segment 9 gray "%D{%H:%M:%S}"
   echo "%F{7}%D{%H:%M:%S}"
 }
 
