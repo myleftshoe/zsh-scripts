@@ -10,6 +10,7 @@ export DEV="/mnt/x"
 alias dev="cd $DEV"
 alias react="cd $DEV/react"
 alias sysinfo="clear; neofetch"
+alias gs="git status"
 
 # Set Start Dir - command prompt will show paths relative to this
 ssd() {
