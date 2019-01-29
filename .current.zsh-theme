@@ -28,28 +28,28 @@ prompt_git() {
 
   if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1)
   then
-   git_unstagedCount=0;
-   git_stagedCount=0;
-   git status --porcelain | while IFS= read -r line
-   do
-     firstChar=${line:0:1}
-     secondChar=${line:1:1}
-     if [[ $firstChar != " " ]]
-     then
-        ((git_stagedCount++))
-     fi
-     if [[ $secondChar != " " ]]
-     then
-        ((git_unstagedCount++))
-     fi
-   done
- 
-   git_remoteCommitDiffCount=$(git rev-list HEAD...origin/master --count)
- 
+    git_unstagedCount=0;
+    git_stagedCount=0;
+    git status --porcelain | while IFS= read -r line
+    do
+      firstChar=${line:0:1}
+      secondChar=${line:1:1}
+      if [[ $firstChar != " " ]]
+      then
+         ((git_stagedCount++))
+      fi
+      if [[ $secondChar != " " ]]
+      then
+         ((git_unstagedCount++))
+      fi
+    done
+  
+    git_remoteCommitDiffCount=$(git rev-list HEAD...origin/master --count 2> /dev/null)
+  
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git show-ref --head -s --abbrev |head -n1 2> /dev/null)"
     prompt_segment 11 black
     echo -n "${ref/refs\/heads\// }"
-    echo -n " %F{green}%K{11}$git_unstagedCount"
+    echo -n " %F{green}%K{11}$git_stagedCount"
     echo -n " %F{red}%K{11}$git_unstagedCount"
     echo -n " %F{yellow}%K{11}$git_remoteCommitDiffCount"
   fi

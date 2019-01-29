@@ -11,6 +11,19 @@ alias dev="cd $DEV"
 alias react="cd $DEV/react"
 alias sysinfo="clear; neofetch"
 alias gs="git status"
+SCRIPTS="$HOME/scripts"
+alias scripts="cd $SCRIPTS"
+
+#replace ls to not show windows hidden files
+ls() {
+  if test "${PWD##/mnt/}" != "${PWD}"; then
+     cmd.exe /D /A /C 'dir /B /AH 2> nul' \
+       | sed 's/^/-I/' | tr -d '\r' | tr '\n' '\0' \
+       | xargs -0 /bin/ls "$@"
+  else
+    /bin/ls "$@"
+fi
+}
 
 # Set Start Dir - command prompt will show paths relative to this
 ssd() {
