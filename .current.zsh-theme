@@ -9,7 +9,7 @@ prompt_segment() {
   fg="%F{$2}"
   bg="%b%K{$1}"
   if [[ $CURRENT_BG != 'NONE' && $1 != $CURRENT_BG ]]; then
-    echo -n " $bg%F{$CURRENT_BG}$fg "
+    echo -n " $bg%F{$CURRENT_BG}$fg "
   else
     echo -n "$bg$fg "
   fi
@@ -19,7 +19,7 @@ prompt_segment() {
 
 # End the prompt, closing any open segments
 prompt_end() {
-  echo -n " %k%F{$CURRENT_BG}%f"
+  echo -n "%K{$CURRENT_BG} %k%F{$CURRENT_BG}%f"
   CURRENT_BG=''
 }
 
@@ -43,45 +43,76 @@ prompt_git() {
   fi
 }
 
+prompt_root() {
+#  prompt_segment blue 5 '%~'
+  local relativePath baseDir
+  baseDir=${(U)$(echo "$PWD" | cut -d "/" -f2)}
+   if [[ -z $baseDir ]]
+   then
+      baseDir="(ROOT)"
+   fi
+  prompt_segment 9 15 "$baseDir"
+# echo -n "%F{15}%K{9} $baseDir "
+# echo -n "%F{7}"
+}
+
+prompt_logo() {
+#  prompt_segment 9 gray ""
+  echo -n "%K{9}%F{gray} "
+  echo -n "%K{9}%F{black} ⎪"
+}
+
 prompt_dir() {
 #  prompt_segment blue 5 '%~'
   local relativePath baseDir
   baseDir=$(echo "$PWD" | cut -d "/" -f2)
-  if [[ $baseDir != $START_BASE_DIR ]]; then
-    relativePath=$PWD
-  else 
-    relativePath=$(python -c "import os.path; print os.path.relpath('$PWD', '$START_DIR')")
-  fi
+# if [[ $baseDir != $START_BASE_DIR ]]; then
+    relativePath=$(basename $PWD)
+# else 
+#   relativePath=$(python -c "import os.path; print os.path.relpath('$PWD', '$START_DIR')")
+# fi
 	
-  if [[ "$PWD" = "$HOME" ]]
+#  if [[ "$PWD" = "$HOME" ]]
+#  then
+#    relativePath="~"
+#    if [[ "$PWD" = "$START_DIR" ]]
+#    then
+#      relativePath="≋"
+#    fi
+#  fi
+#  if [[ $relativePath = '.' ]]
+#  then
+#    relativePath="≈"
+#  fi
+  if [[ $relativePath = $baseDir ]] 
   then
-    relativePath="~"
-    if [[ "$PWD" = "$START_DIR" ]]
-    then
-      relativePath="≋"
-    fi
+    relativePath=""
   fi
-  if [[ $relativePath = '.' ]]
+  if [[ $relativePath = "/" ]] 
   then
-    relativePath="≈"
+    relativePath=""
   fi
-  prompt_segment 9 15 "$relativePath"
+  prompt_segment 7 15 "$relativePath"
+#  echo -n "%F{black}%K{7} $relativePath "
+#  echo -n "%F{9}"
 }
 
 prompt_logo() {
   prompt_segment 9 gray ""
+  echo -n "%K{9}%F{black} ⎪"
 }
 
 prompt_time() {
-  prompt_segment 9 gray "%D{%H:%M:%S}"
-  echo -n "%F{black}%K{9} ⎪" 
+# prompt_segment 9 gray "%D{%H:%M:%S}"
+  echo "%F{7}%D{%H:%M:%S}"
 }
 
 ## Main prompt
 build_prompt() {
   echo #insert blank line before each prompt
-  prompt_logo
   prompt_time
+  prompt_logo
+  prompt_root
   prompt_dir
   prompt_git
   prompt_end
