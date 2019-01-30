@@ -47,11 +47,11 @@ prompt_git() {
     git_remoteCommitDiffCount=$(git rev-list HEAD...origin/master --count 2> /dev/null)
   
     ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git show-ref --head -s --abbrev |head -n1 2> /dev/null)"
-    prompt_segment 11 black
+    prompt_segment 7 black
     echo -n "${ref/refs\/heads\// }"
-    echo -n " %F{green}%K{11}$git_stagedCount"
-    echo -n " %F{red}%K{11}$git_unstagedCount"
-    echo -n " %F{yellow}%K{11}$git_remoteCommitDiffCount"
+    echo -n " %F{green}%K{7}$git_stagedCount"
+    echo -n " %F{red}%K{7}$git_unstagedCount"
+    echo -n " %F{yellow}%K{7}$git_remoteCommitDiffCount"
   fi
 }
 
@@ -62,13 +62,13 @@ prompt_root() {
    then
       baseDir="(ROOT)"
    fi
-  prompt_segment 9 15 "$baseDir"
+  prompt_segment 5 15 "$baseDir"
 }
 
 prompt_logo() {
 #  prompt_segment 9 gray ""
-  echo -n "%K{9}%F{gray} "
-  echo -n "%K{9}%F{black} ⎪"
+  echo -n "%K{5}%F{gray} "
+  echo -n "%K{5}%F{black} ⎪"
 }
 
 prompt_dir() {
@@ -83,16 +83,16 @@ prompt_dir() {
   then
     relativePath=""
   fi
-  prompt_segment 7 15 "$relativePath"
-}
-
-prompt_logo() {
-  prompt_segment 9 gray ""
-  echo -n "%K{9}%F{black} ⎪"
+  prompt_segment 13 15 "$relativePath"
 }
 
 prompt_time() {
-  echo "%F{7}%D{%H:%M:%S}"
+  echo -n "%F{13}%D{%H:%M:%S}"
+  if [[ $elapsed ]]
+  then
+    echo -n " %F{7}($elapsed ms)"
+  fi
+  echo
 }
 
 ## Main prompt

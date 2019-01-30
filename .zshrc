@@ -14,6 +14,21 @@ alias gs="git status"
 SCRIPTS="$HOME/scripts"
 alias scripts="cd $SCRIPTS"
 
+
+function preexec() {
+  timer=$(($(date +%s%N)/1000000))
+}
+
+function precmd() {
+  if [ $timer ]; then
+    now=$(($(date +%s%N)/1000000))
+    elapsed=$(($now-$timer))
+
+#   export RPROMPT="%F{cyan}${elapsed}ms %{$reset_color%}"
+    unset timer
+  fi
+}
+
 #replace ls to not show windows hidden files
 ls() {
   if test "${PWD##/mnt/}" != "${PWD}"; then
@@ -26,7 +41,7 @@ fi
 }
 
 # Set Start Dir - command prompt will show paths relative to this
-ssd() {
+set~~() {
   START_DIR=$PWD
   START_BASE_DIR=$(echo "$START_DIR" | cut -d "/" -f2)
   echo
@@ -34,18 +49,18 @@ ssd() {
   echo
 }
 
-alias sd='echo $START_DIR'
+alias get~~='echo "\n $START_DIR"'
 
 # ~ goes to home folder, ~~ will now go to $START_DIR
 alias ~~='cd $START_DIR'
-alias .='cd $START_DIR'
+alias go~~='cd $START_DIR'
 
 # z - for jumping around folders
 source ~/z.sh
 
 export PATH=$PATH:$HOME/Library/Python/2.7/bin
 
-ssd
+set~~
 
 #[ "$PWD" = "$HOME" ] && neofetch
 
