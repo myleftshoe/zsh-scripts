@@ -4,6 +4,17 @@ $SHELL --version
 #chcp 65001
 
 #********************* MY SETTINGS ************************
+
+alias drives="df | grep -o '^.:'"
+
+# Create windows drive aliases e.g. c: x: m:
+drives | while read -r line
+do
+  driveLetter=${line:0:1:l}
+  alias $driveLetter:="cd /mnt/$driveLetter"
+done
+
+
 export DEV="/mnt/x"
 alias dev="cd $DEV"
 alias react="cd $DEV/react"
