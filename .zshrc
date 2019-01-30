@@ -4,8 +4,6 @@ $SHELL --version
 #chcp 65001
 
 #********************* MY SETTINGS ************************
-
-alias home="cd $HOME"
 export DEV="/mnt/x"
 alias dev="cd $DEV"
 alias react="cd $DEV/react"
@@ -42,18 +40,17 @@ fi
 
 # Set Start Dir - command prompt will show paths relative to this
 set~~() {
-  START_DIR=$PWD
-  START_BASE_DIR=$(echo "$START_DIR" | cut -d "/" -f2)
+  _HOME=$PWD
   echo
-  echo Start folder set to $START_DIR
+  echo Start folder set to $_HOME
   echo
 }
 
-alias get~~='echo "\n $START_DIR"'
+alias get~~='echo "\n $_HOME"'
 
-# ~ goes to home folder, ~~ will now go to $START_DIR
-alias ~~='cd $START_DIR'
-alias go~~='cd $START_DIR'
+# ~ goes to home folder, ~~ will now go to $_HOME
+alias ~~='cd $_HOME'
+alias go~~='cd $_HOME'
 
 # z - for jumping around folders
 source ~/z.sh
