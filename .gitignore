@@ -1,6 +1,7 @@
 *
 !.gitignore
 !.zshrc
+!.vimrc
 !.current.zsh-theme
 !scripts/
 !scripts/*

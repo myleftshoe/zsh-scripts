@@ -18,7 +18,10 @@ build_prompt() {
   pwdPath="$PWD" 
   pwdLeaf=$(basename $pwdPath)
 
-  prompt_time
+  if [[ $timer = "on" ]]
+  then
+     prompt_time
+  fi
 
   if [[ "$pwdPath" = "$HOME" ]] 
   then

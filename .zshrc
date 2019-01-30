@@ -23,18 +23,29 @@ alias gs="git status"
 SCRIPTS="$HOME/scripts"
 alias scripts="cd $SCRIPTS"
 
+timer="on"
+function set-timer() {
+	if [[ $1 = "on" ]]
+	then
+		timer="on"
+	fi
+	if [[ $1 = "off" ]]
+	then
+		timer="off"
+	fi
+}
 
 function preexec() {
-  timer=$(($(date +%s%N)/1000000))
+  _timer=$(($(date +%s%N)/1000000))
 }
 
 function precmd() {
-  if [ $timer ]; then
+  if [ $_timer ]; then
     now=$(($(date +%s%N)/1000000))
-    elapsed=$(($now-$timer))
+    elapsed=$(($now-$_timer))
 
 #   export RPROMPT="%F{cyan}${elapsed}ms %{$reset_color%}"
-    unset timer
+    unset _timer
   fi
 }
 
@@ -117,10 +128,10 @@ ZSH_THEME="/../../.current"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git
-  node
-  npm
-  vscode
+#  git
+#  node
+#  npm
+#  vscode
   extract
   zsh-syntax-highlighting
   zsh-autosuggestions
