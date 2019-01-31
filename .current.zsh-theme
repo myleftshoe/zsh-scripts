@@ -6,7 +6,7 @@ prompt_time() {
   # elapsed is set in .zshrc precmd()
   if [[ $elapsed ]]
   then
-    echo -n " %F{7}($elapsed ms)%f"
+    echo -n " ($elapsed ms)"
   fi
   echo
 }
@@ -39,10 +39,6 @@ build_prompt() {
       folderIcon="≈"
   fi
 
-#  echo "pwdLeaf  $pwdLeaf"
-#  echo "pwdParentPath  $pwdParentPath"
-#  echo
-#
   # Line 1
   echo -n "%F{11}┏━ $folderIcon%f"
   echo -n " $pwdLeaf"
