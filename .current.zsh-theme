@@ -1,5 +1,6 @@
 # vim:ft=zsh ts=2 sw=2 sts=2
 
+
 prompt_time() {
 #  echo -n "   %F{11}%f "
   echo -n "%F{8}%D{%H:%M:%S}%f"
@@ -13,8 +14,6 @@ prompt_time() {
 
 ## Main prompt
 build_prompt() {
-   
-  echo
 
   pwdPath="$PWD" 
   pwdLeaf=$(basename $pwdPath)
@@ -40,7 +39,7 @@ build_prompt() {
   fi
 
   # Line 1
-  echo -n "%F{11}┏━ $folderIcon%f"
+  echo -n "%F{$promptColor}┏━ $folderIcon%f"
   echo -n " $pwdLeaf"
   if [[ "$pwdLeaf" != "$pwdPath" ]] {
       echo -n " %F{8} $pwdParentPath%f" 
@@ -53,7 +52,7 @@ build_prompt() {
   if [[ $is_git ]]
   then
  
-	echo -n "%F{11}┃%f "
+	echo -n "%F{$promptColor}┃%f "
  
 	gitLogo=""
 	gitBranchIcon=""
@@ -105,12 +104,13 @@ build_prompt() {
     
     if [[ "$gitRemoteName" != "$gitRepoLeaf" ]] 
     then
-        echo -n " %F{11}($gitRemoteName)%f"
+        echo -n " %F{11}肋%f"
+        echo -n "$gitRemoteName"
 	fi    
     echo
   fi #is_git
   
-  echo "%F{11}┗%f"
+  echo "%F{$promptColor}┗%f"
 
 }
 

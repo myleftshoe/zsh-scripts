@@ -39,7 +39,22 @@ function preexec() {
   _timer=$(($(date +%s%N)/1000000))
 }
 
+promptColor=11
+dynamicPromptColor="on"
+nextPromptColor() {
+    ((promptColor++))
+    if [[ $promptColor -gt 15 ]]
+    then
+    	promptColor=1
+	fi
+    echo $promptColor
+}
+
 function precmd() {
+  if [[ $dynamicPromptColor = "on" ]]
+  then
+  	nextPromptColor
+  fi
   if [ $_timer ]; then
     now=$(($(date +%s%N)/1000000))
     elapsed=$(($now-$_timer))
