@@ -1,12 +1,12 @@
 # vim:ft=zsh ts=2 sw=2 sts=2
 
 prompt_time() {
-  echo -n "   %F{11}%f "
+#  echo -n "   %F{11}%f "
   echo -n "%F{8}%D{%H:%M:%S}%f"
   # elapsed is set in .zshrc precmd()
   if [[ $elapsed ]]
   then
-    echo " %F{7}($elapsed ms)%f"
+    echo -n " %F{7}($elapsed ms)%f"
   fi
   echo
 }
