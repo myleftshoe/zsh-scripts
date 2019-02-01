@@ -97,10 +97,10 @@ build_prompt() {
    fi 
 
     echo -n " %F{11}$gitBranchIcon%f"
-    echo -n " %K{0}$git_branch"
-    echo -n " %F{green}%K{0}$git_stagedCount"
-    echo -n " %F{red}%K{0}$git_unstagedCount"
-    echo -n " %F{11}%K{0}$git_remoteCommitDiffCount"
+    echo -n " $git_branch"
+    echo -n " %F{green}$git_stagedCount"
+    echo -n " %F{red}$git_unstagedCount"
+    echo -n " %F{11}$git_remoteCommitDiffCount"
     
     if [[ "$gitRemoteName" != "$gitRepoLeaf" ]] 
     then

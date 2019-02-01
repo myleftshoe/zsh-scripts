@@ -18,7 +18,7 @@ done
 export DEV="/mnt/x"
 alias dev="cd $DEV"
 alias react="cd $DEV/react"
-alias sysinfo="clear; neofetch"
+alias sysinfo="clear; neofetch --block_range 0 15"
 alias gs="git status"
 SCRIPTS="$HOME/scripts"
 alias scripts="cd $SCRIPTS"
@@ -38,6 +38,8 @@ function set-timer() {
 function preexec() {
   _timer=$(($(date +%s%N)/1000000))
 }
+
+source ./scripts/show-colors.zsh
 
 promptColor=11
 dynamicPromptColor="on"
