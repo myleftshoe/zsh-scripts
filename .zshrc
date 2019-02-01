@@ -47,7 +47,6 @@ nextPromptColor() {
     then
     	promptColor=1
 	fi
-    echo $promptColor
 }
 
 function precmd() {
