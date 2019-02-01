@@ -19,6 +19,10 @@ build_prompt() {
   pwdLeaf=$(basename $pwdPath)
   pwdParentPath=${pwdPath:a:h}
 
+  if [[ $elapsed ]]
+  then
+    echo
+  fi
   if [[ $timer = "on" ]]
   then
      prompt_time
