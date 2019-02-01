@@ -36,6 +36,7 @@ function set-timer() {
 }
 
 function preexec() {
+  echo
   _timer=$(($(date +%s%N)/1000000))
 }
 
@@ -56,11 +57,10 @@ function precmd() {
   then
   	nextPromptColor
   fi
+  unset elapsed
   if [ $_timer ]; then
     now=$(($(date +%s%N)/1000000))
     elapsed=$(($now-$_timer))
-
-#   export RPROMPT="%F{cyan}${elapsed}ms %{$reset_color%}"
     unset _timer
   fi
 }
