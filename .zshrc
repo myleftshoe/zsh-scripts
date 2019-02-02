@@ -168,4 +168,3 @@ zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 autoload -Uz compinit
 compinit
 
-source ~/.setup_extraterm_zsh.zsh

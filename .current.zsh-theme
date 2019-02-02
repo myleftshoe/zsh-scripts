@@ -61,14 +61,11 @@ build_prompt() {
 	gitLogo=""
 	gitBranchIcon=""
 
-    ref=$(git symbolic-ref HEAD 2> /dev/null) || ref="➦ $(git show-ref --head -s --abbrev |head -n1 2> /dev/null)"
-
-	git_branch="${ref/refs\/heads\//}";
+	git_branch="(none)";
+    git_branch="$(git symbolic-ref --short HEAD)" 
     
-    if [[ -z "$git_branch" ]]
-    then
-   		git_branch="(none)"
-  	fi
+    git_commitCount=0
+    git_commitCount="$(git rev-list --all --count)"
 
     git_unstagedCount=0;
     git_stagedCount=0;
@@ -92,21 +89,30 @@ build_prompt() {
     gitRepoPath=$(git rev-parse --show-toplevel)
     gitRepoLeaf=$(basename $gitRepoPath)
 
-    gitRemoteName=${$(basename $(git remote get-url origin)):r}
+    gitRemoteName=""
+    gitRemoteUrl=$(git remote get-url origin 2> /dev/null)
+    if [ $gitRemoteUrl ]
+    then
+        gitRemoteName=${$(basename $gitRemoteUrl):r}
+    fi
 
     if [[ "$pwdPath" != "$gitRepoPath" ]] 
 	then
         echo -n " %F{11}$gitLogo%f "
         echo -n "$gitRepoLeaf"
-   fi 
+    fi 
 
     echo -n " %F{11}$gitBranchIcon%f"
     echo -n " $git_branch"
+    if [[ $git_commitCount -eq 0 ]]
+    then
+        echo -n " %F{8}(no commits)%f"
+    fi
     echo -n " %F{green}$git_stagedCount"
     echo -n " %F{red}$git_unstagedCount"
     echo -n " %F{11}$git_remoteCommitDiffCount"
     
-    if [[ "$gitRemoteName" != "$gitRepoLeaf" ]] 
+    if [[ "$gitRemoteName" && ("$gitRemoteName" != "$gitRepoLeaf") ]] 
     then
         echo -n " %F{11}肋%f"
         echo -n "$gitRemoteName"
